@@ -60,12 +60,16 @@ export default function StudentForm({ existingStudent, existingEmails }: Student
       lastName: existingStudent?.lastName ?? "",
       email: existingStudent?.email ?? "",
       phone: existingStudent?.phone ?? "",
-      dob: existingStudent?.dob ?? "",
+      dob: existingStudent?.dateOfBirth ?? "",
+      dateOfBirth: existingStudent?.dateOfBirth ?? existingStudent?.dateOfBirth ?? "",
       course: existingStudent?.course ?? "",
       batch: existingStudent?.batch ?? "",
       startDate: existingStudent?.startDate ?? "",
       trainer: existingStudent?.trainer ?? "",
       experience: existingStudent?.experience ?? "",
+      status: existingStudent?.status ?? "Active",
+      score: existingStudent?.score ?? 0,
+      pendingAssignments: existingStudent?.pendingAssignments ?? 0,
     },
     validationSchema: activeStep === 0 ? step1Schema : activeStep === 1 ? step2Schema : Yup.object(),
     validateOnChange: true,
@@ -142,7 +146,6 @@ export default function StudentForm({ existingStudent, existingEmails }: Student
         value={formik.values.dob} onChange={formik.handleChange} onBlur={formik.handleBlur}
         error={formik.touched.dob && Boolean(formik.errors.dob)}
         helperText={formik.touched.dob && formik.errors.dob}
-        InputLabelProps={{ shrink: true }}
       />
     </Box>
   );
@@ -171,7 +174,7 @@ export default function StudentForm({ existingStudent, existingEmails }: Student
         value={formik.values.startDate} onChange={formik.handleChange} onBlur={formik.handleBlur}
         error={formik.touched.startDate && Boolean(formik.errors.startDate)}
         helperText={formik.touched.startDate && formik.errors.startDate}
-        InputLabelProps={{ shrink: true }}
+        slotProps={{ inputLabel: { shrink: true } }}
       />
       <TextField
         select fullWidth label="Trainer" name="trainer"
@@ -193,7 +196,7 @@ export default function StudentForm({ existingStudent, existingEmails }: Student
   // Step 3 — Confirmation (read-only)
   const Step3 = (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
-      <Typography variant="h6" fontWeight="bold" mb={1}>Confirm Details</Typography>
+      <Typography variant="h6" sx={{ fontWeight: "bold", mb: 1 }}>Confirm Details</Typography>
       {[
         ["First Name", formik.values.firstName],
         ["Last Name", formik.values.lastName],
@@ -208,7 +211,7 @@ export default function StudentForm({ existingStudent, existingEmails }: Student
       ].map(([label, value]) => (
         <Box key={label} sx={{ display: "flex", gap: 2, borderBottom: "1px solid #eee", pb: 1 }}>
           <Typography sx={{ width: 140, color: "text.secondary", fontSize: 14 }}>{label}:</Typography>
-          <Typography fontWeight="medium" fontSize={14}>{value}</Typography>
+          <Typography sx={{ fontWeight: "medium", fontSize: 14 }}>{value}</Typography>
         </Box>
       ))}
     </Box>

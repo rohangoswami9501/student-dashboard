@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import {
   Box,
@@ -77,8 +76,8 @@ export default function StudentFilters({
             setFilters((prev) => ({ ...prev, course: e.target.value }))
           }
           MenuProps={{
-            PaperProps: {
-              sx: { maxHeight: 300 },
+            slotProps: {
+              paper: { sx: { maxHeight: 300 } },
             },
           }}
         >

@@ -21,7 +21,7 @@ export default function AddStudentView() {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h5" fontWeight="bold" mb={3}>
+      <Typography variant="h5" sx={{ fontWeight: "bold", mb: 3 }}>
         Add New Student
       </Typography>
       <StudentForm existingEmails={existingEmails} />

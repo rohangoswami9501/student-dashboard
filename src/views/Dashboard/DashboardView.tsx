@@ -58,22 +58,37 @@ export default function DashboardView() {
   const { students, loading, error, loadStudents } = useStudents();
 
   const stats = useMemo(() => {
-    const total = students.length;
-    const active = students.filter((s) => s.status === "Active").length;
-    const completed = students.filter((s) => s.status === "Completed").length;
-    const avgScore =
-      total > 0
-        ? Math.round(
-            students.reduce((sum, s) => sum + Number(s.score), 0) / total
-          )
-        : 0;
-    const pendingAssignments = students.reduce(
-      (sum, s) => sum + Number(s.pendingAssignments),
-      0
-    );
-    return { total, active, completed, avgScore, pendingAssignments };
-  }, [students]);
+  const total = students.length;
 
+  const active = students.filter(
+    (s) => s.status === "Active"
+  ).length;
+
+  const completed = students.filter(
+    (s) => s.status === "Completed"
+  ).length;
+
+  const totalScore = students.reduce((sum, s) => {
+    const score = Number(s.score);
+    return sum + (Number.isFinite(score) ? score : 0);
+  }, 0);
+
+  const avgScore =
+    total > 0 ? Math.round(totalScore / total) : 0;
+
+  const pendingAssignments = students.reduce((sum, s) => {
+    const pending = Number(s.pendingAssignments);
+    return sum + (Number.isFinite(pending) ? pending : 0);
+  }, 0);
+
+  return {
+    total,
+    active,
+    completed,
+    avgScore,
+    pendingAssignments,
+  };
+}, [students]);
   if (loading) return <Loading message="Loading dashboard..." />;
 
   if (error)

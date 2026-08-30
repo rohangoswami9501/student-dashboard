@@ -5,19 +5,17 @@ import {
   Box, List, ListItemButton, ListItemIcon,
   ListItemText, Typography, Divider,
 } from "@mui/material";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import PeopleIcon from "@mui/icons-material/People";
+import PersonIcon from "@mui/icons-material/Person";
 import CampaignIcon from "@mui/icons-material/Campaign";
 
 const SIDEBAR_WIDTH = 240;
 
 const navItems = [
-  { label: "Dashboard", icon: <DashboardIcon />, path: "/dashboard" },
-  { label: "Students", icon: <PeopleIcon />, path: "/students" },
-  { label: "Announcements", icon: <CampaignIcon />, path: "/announcements" },
+  { label: "My Profile", icon: <PersonIcon />, path: "/profile" },
+  { label: "Announcements", icon: <CampaignIcon />, path: "/student-announcements" },
 ];
 
-export default function AdminSidebar() {
+export default function StudentSidebar() {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -38,15 +36,22 @@ export default function AdminSidebar() {
       }}
     >
       <Box sx={{ px: 3, py: 2 }}>
-        <Typography variant="caption" sx={{ color: "#ffffff60", textTransform: "uppercase", letterSpacing: 1 }}>
-          Admin Menu
+        <Typography
+          variant="caption"
+          sx={{ color: "#ffffff60", textTransform: "uppercase", letterSpacing: 1 }}
+        >
+          Student Menu
         </Typography>
       </Box>
+
       <Divider sx={{ borderColor: "#ffffff20" }} />
+
       <List sx={{ px: 1, mt: 1 }}>
         {navItems.map((item) => {
-          const isActive = pathname === item.path ||
-            (item.path === "/students" && pathname.startsWith("/students"));
+          const isActive =
+            pathname === item.path ||
+            (item.path === "/profile" && pathname.startsWith("/profile"));
+
           return (
             <ListItemButton
               key={item.path}
@@ -64,10 +69,19 @@ export default function AdminSidebar() {
               </ListItemIcon>
               <ListItemText
                 primary={item.label}
-                slotProps={{ primary: { fontSize: 14, fontWeight: isActive ? 600 : 400 } }}
+                slotProps={{
+                  primary: { fontSize: 14, fontWeight: isActive ? 600 : 400 },
+                }}
               />
               {isActive && (
-                <Box sx={{ width: 4, height: 32, backgroundColor: "#42a5f5", borderRadius: 2, position: "absolute", right: 0 }} />
+                <Box
+                  sx={{
+                    width: 4, height: 32,
+                    backgroundColor: "#42a5f5",
+                    borderRadius: 2,
+                    position: "absolute", right: 0,
+                  }}
+                />
               )}
             </ListItemButton>
           );

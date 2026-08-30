@@ -100,7 +100,7 @@ export default function StudentsView() {
   return (
     <Box sx={{ p: 3 }}>
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
-        <Typography variant="h5" fontWeight="bold">
+        <Typography variant="h5" sx={{ fontWeight: "bold" }}>
           Students
         </Typography>
         <Button
@@ -122,7 +122,7 @@ export default function StudentsView() {
 
       {filteredStudents.length === 0 ? (
         <Box sx={{ textAlign: "center", py: 6 }}>
-          <Typography color="text.secondary" mb={2}>
+          <Typography color="text.secondary" sx={{ mb: 2 }}>
             No students found.
           </Typography>
           <Button variant="contained" onClick={() => router.push("/students/add")}>
